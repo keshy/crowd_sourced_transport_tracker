@@ -24,10 +24,12 @@ http://<server>:<port>/<context>/main?api_method=query&route_id=x&stop_id=y&gpsL
     "data": [
         {
             "routeId": "<routeId>",
+			"routeName": "<routeName>",
+			"direction": "<direction>",
             "stopID": "<stopId>",
             "stopName": "<stopName>",
-            "stopLastSeen": "<lastStopName>",
-            "timeLastSeen": "<timestamp of last seen value>"
+            "lastSeenStopName": "<lastStopName>",
+            "lastSeenTime": "<timestamp of last seen value>"
         }
     ]
 }
