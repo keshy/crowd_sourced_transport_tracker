@@ -1,0 +1,47 @@
+JSON formatting: 
+
+1. Update information: (Common for both feature)
+
+{
+    "update": {
+        "routeId": "<routeId>",
+        "stopId": "<stopId>",
+        "gpsLocation": "<gpslocation>"
+    }
+}
+
+2. Acknowledgement for the update 
+{
+    "response": "<response from server/responseCode>",
+    "request": {
+        "update": {
+            "routeId": "<routeId>",
+            "stopId": "<stopId>",
+            "gpsLocation": "<gpslocation>"
+        }
+    }
+}
+
+3. 	User query: Common across all platforms
+{
+    "query": {
+        "routeId": "<routeId>",
+        "stopId": "<stopId>",
+        "gpsLocation": "<gpslocation>",
+		"isSmartPhone": "<boolean value>"
+    }
+}
+
+4. Data sent back from server for the query:
+{
+    "response": "<response code>",
+    "data": [
+        {
+            "routeId": "<routeId>",
+            "stopID": "<stopId>",
+            "stopName": "<stopName>",
+            "stopLastSeen": "<lastStopName>",
+            "timeLastSeen": "<timestamp of last seen value>"
+        }
+    ]
+}
