@@ -18,12 +18,16 @@ class MainLogic{
 		$q = "SELECT * FROM sightings as s where timestamp = ( select max(timestamp) from sightings where r_id='"+$routeId"'";
 		$res = $this->dbw->getQuery($q);
 		
+        
+        
 		$resultArray = array();
 		if($res){
 			$sid = $row["s_id"];
+            $stopNameQuery = "SELECT sname FROM stops where s_id = '"+$sid+"'";
+            $stopName = $this->dbw->getQuery($stopNameQuery);
 			$timestamp = $row["timestamp"];
 			//got the timestamp and the sid for the most recent check in for the route.  
-			array_push($resultArray, $sid, $timestamp);	
+			array_push($resultArray, $routeId,$stopName, $timestamp);	
 		}
 		else {
             return false;
@@ -51,15 +55,24 @@ class MainLogic{
 		$result = array();
 		//cycle through each routeID and call getRouteInfoForStop
 		if($rids){
+        $i=0;
 			foreach($rids as $routeId){
+                $i = $i + 1;
 				$response = getRouteInfoAtStop($routeId, $stopId);
-				array_push($result, $response);
+                //get 3 most recent updates for routes near the located user.
+                if($i<=3){
+                    array_push($result, $response);
+                }
+                else {
+                    break;
+                }                       
 			}
 		} 
 		else {
 			//throw error 
             return false;
 		}
+        
 		return $result;
 	}
 	

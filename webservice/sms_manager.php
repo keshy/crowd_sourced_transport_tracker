@@ -38,15 +38,26 @@ class SmsManager{
             return "Can not process your request at this time. [01]";
         }
         //Process the Array
+        $timeStamp = array_pop($obj);
+		$sname = array_pop($obj);
+        $routeId = array_pop($obj);
+        $str = "Route#: "+$routeId+" left :"+$sname +" at "+$timeStamp+"\n";
+        return $str;
     }
     
     function renderALL($obj){
         if(!$obj){
             //False
-            return "Can not process your request at this time. [01]";
+            return "Can not process your request at this time. [02]";
         }
-        //Process top 3 routes
-        
+        $str = ""; 
+        foreach($obj as $element){
+            $timestamp = array_pop($element);
+            $sname = array_pop($element);
+            $routeId = array_pop($element);
+            $str += "Route#: "+$routeId+" left :"+$sname +" at "+$timeStamp+"\n";
+        }
+        return $str;
     }
     
 }
