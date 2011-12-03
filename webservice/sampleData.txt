@@ -1,0 +1,100 @@
+1 : South
+0  10  7  12  14
+Coronet Way & Moores Mill Road:	CWMM
+Chattahoochee & Southland:	ChSo
+Huff Rd & Howell Mill:	HuHM
+Luckie St & North Ave.:	LuNo
+Alabama & Broad St.:	AlBr
+
+
+3 : East
+0	8	7	5	14	9
+Hamilton E. Holmes Station:	HoSt
+M. L. King Jr. Dr. @ Westlake Av:	MkWl
+Martin Luther King & Whitehouse:	MLWh
+Alabama & Broad St.:	AlBr
+Highland & Randolph:	HiRa
+Candler Park Station North:	CaPN
+
+
+
+6 : South
+0   9   10   13
+Lindbergh Station:	LiSt
+Briarcliff & LaVista:	BrLa
+N. Decatur & Clifton Rd.:	NDCf
+Inman Park Station (North Bay):   IPSN
+
+
+
+19  :  North
+0	6	6	8	12	8
+Decatur Station:	DeSt
+Clairmont & North Decatur:	ClND
+VA Hospital:	VAHo
+Clairmont & LaVista:	ClLV
+Clairmont & Buford:	ClBu
+Chamblee Station East Bus Bay:	ChSE
+
+
+
+26 : East
+0	5	5	5	5	9
+Perry Heights:	PeHe
+Carver Hills:	CaHi
+Perry Garage:	PeGa
+Bankhead Station:	BaSt
+English Ave. & Cameron M. Alexan:	EaCABlvd
+North Ave Station:	NASt
+
+
+42 : North
+0  7   6   7   6   13
+Lakewood Station:	LaSt
+John Burdine @ Lakewood Way:	JBLW
+Arthur Langford Jr. Pl.:	ArLf
+Moury & Middleton:	MoMi
+McDaniel & University:	McUn
+Alabama & Broad St.:	AlBr
+
+
+
+
+53  : South
+0  8   10  7  5   5
+Alabama & Broad St.:	AlBr
+Atlanta Ave. & Hank Aaron:	AtHA
+Claire Dr. & Jonesboro Rd.:	CrJo
+Cleveland Ave & Jonesboro Rd:	ClJo
+Forest Park & Hutchins:	FPHu
+Jonesboro & Old Conley:	JoOC
+
+
+
+73  : North
+0  5  2  5   6  12
+LaGrange & Boat Rock:	LaBR
+Baker Ferry & Boat Rock:	BFBR
+Fulton Ind. & Cascade:	FICa
+Fulton Industrial & James Aldred:	FIJa
+Fulton Industrial & MLK:	FIML
+Hamilton E. Holmes Station:	HoSt
+
+
+
+78   West
+0   4   9   9
+Cleveland Ave & Jonesboro Rd:	ClJo
+Browns Mill & Cleveland: 	BMCl
+Cleveland & Sylvan:	ClSy
+East Point Station:	EPSt
+
+
+93   East
+0  13  6   15   8    6
+Delowe & Dorsey: 	DeDo
+Delowe Dr. & Headland Dr:	DeHe
+East Point Station A:	EPStA
+East Point Station:	EPSt
+Bayard St. & E.Washington Ave.:	BaEW
+Maria Head & Norman Berry:	MHNB
