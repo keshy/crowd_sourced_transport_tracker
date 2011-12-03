@@ -104,7 +104,7 @@
               for (var i = 0; i < len; i++) {
                   html += '<option value="' + data.routes[i].routeId + '">' + data.routes[i].routeName + '</option>';
               }
-              $('#routelist').append(html);
+              $('#routelist').html(html);
 
               $('#routelist').selectedIndex = 0;
               $('#routelist').selectmenu("refresh");

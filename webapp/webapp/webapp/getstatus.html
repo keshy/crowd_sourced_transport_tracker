@@ -69,7 +69,8 @@
        </select>
        <button type="button" id="getstatusbutton" data-theme="a">Get Status</button>
        </form>
-  
+  <br />
+  <ul data-role="listview" id="resultslist" />
          
    </div>
  <div id="resultscontainer"/>
@@ -150,22 +151,18 @@
             e.preventDefault();
 
             $.getJSON('SampleGetRoutesResponse.txt', function (data) {
-                var html = '<ul data-role="listview" id="resultslist">';
-                //var html = '';
+                //var html = '<ul data-role="listview" id="resultslist">';
+                var html = '';
                 var len = data.data.length;
                 for (var i = 0; i < len; i++) {
-                    html += '<li>' + data.data[i].routeName + '</li>';
+                    html += '<li>' + data.data[i].routeName + '<span class="ui-li-aside">23:00</span></li>';
+                    html += ''
                 }
-                html += '</ul>'
-                //$('#resultslist').empty();
-                $('#resultscontainer').html(html);
+                //html += '</ul>'
+                $('#resultslist').empty();
+                $('#resultslist').append(html);
+                $('#resultslist').listview("refresh");
             });
-
-            //$('#resultscontainer').listview();
-
-            //$('#resultscontainer').listview('refresh');
-            //$('#resultslist').listview();
-            //$('#resultslist').listview("refresh");
         });
     });
 </script>
