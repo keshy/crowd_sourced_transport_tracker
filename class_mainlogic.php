@@ -9,9 +9,29 @@ class mainLogic{
         $this->dbw = new DbWrapper();
     }
     
+	
+	//update information 
+	public function update($routeId, $stopId){
+		//update the entry to the sightings table...
+		$q = "INSERT INTO sightings (s_id, r_id) VALUES ('"+$stopId+"', '"+$routeId+"')";
+		$res = $this->dbw->getQuery($q);
+		$OK = null;
+		if($res){
+			//return success
+			$OK = "Update Successful";
+			return $OK;
+		}
+		else {
+			//throw error
+		}
+				
+	}
+	
     
     //01. All the Getters
-    public getRouteInfoForStopId($routeId, $stopId){
+	
+	//Throw the most recent info for a given stop and route
+    public function getRouteInfoForStopId($routeId, $stopId){
     /*  
     {
     "response": "<error code>",
@@ -31,11 +51,106 @@ class mainLogic{
     ]
     }
     */
-    
-    
-    
-    }
-    
+	//get all the stops before the stop. Do not consider stops after this stop 
+	/*$query = "SELECT s.sid from stops as s where s.sid < sid";	
+	$previousStops = $this->dbw->getQuery($q);
+	if($previousStops){
+		while($row = mysql_fetch_assoc($previousStop)){
+			
+		}
+		
+	}*/
+	
+	//fetch the most recently updated time stamp for that route information and return the stop where it was seen
+		$q = "SELECT * FROM sightings as s where timestamp = ( select max(timestamp) from sightings where r_id='"+$routeId"'";
+		$res = $this->dbw->getQuery($q);
+		
+		$resultArray = array();
+		if($res){
+			$sid = $row["s_id"];
+			$timestamp = $row["timestamp"];
+			//got the timestamp and the sid for the most recent check in for the route.  
+			array_push($resultArray, $sid, $timestamp);	
+		}
+		else {
+			//throw error. 
+		}
+		return $resultArrray;
+	}
+	
+	public function getRoutesAtStop($stopId){
+		//get all the routes at a particular stop. 
+		$q = "SELECT distinct(r_id) FROM stoplist where s_id = '"+$stopId+"'";
+		$res = $this->dbw->getQuery($q);
+		
+		$rids = array();
+		
+		if($res){
+			while($row = mysql_fetch_assoc($res)){
+                array_push($rids,$row);
+			}
+				
+		}else {
+			//throw error
+		}
+		
+		// cycle through each route Id 
+		$result = array();
+		//cycle through each routeID and call getRouteInfoForStop
+		if($rids){
+			foreach($rids as $routeId){
+				$response = getRouteInfoForStopId($routeId, $stopId);
+				array_push($result, $response);
+			}
+			
+		} 
+		else {
+			//throw error 
+		}
+		
+		return $result;
+		
+		
+	}
+	
+	public function getRoutesNearMe($lat1, $long1){
+	//get routes near me taking the gps location as coordinates
+	//First step would be to find out the nearest stop with this lat long. 
+		$stopDetail = getStopIdAndNameForLatLong($lat1, $long1);
+		$stopName = array_pop($stopDetail);
+		$stopId = array_pop($stopDetail);
+		
+		//now with the stop get routes next near this stop. 
+		$rids = getRoutesAtStop($stopId);
+		$result = array();
+		//cycle through each routeID and call getRouteInfoForStop
+		if($rids){
+			foreach($rids as $routeId){
+				$response = getRouteInfoForStopId($routeId, $stopId);
+				array_push($result, $response);
+			}
+			
+		} 
+		else {
+			//throw error 
+		}
+		
+		return $result;
+
+	}
+	
+	public function getRouteInfoNearMe($routeId, $lat1, $long1){
+		//lat long received from client
+		//get stop Id first. 
+		$stopDetail = getStopIdAndNameForLatLong($lat1, $long1);
+		$stopName = array_pop($stopDetail);
+		$stopId = array_pop($stopDetail);
+		
+		//call specific method - reduced to feature phone
+		return getRouteInfoForStopId($routeId, $stopId);
+		
+	}
+	   
     
     private function getStopIdAndNameForLatLong($lat1, $long1){
         $dist = PHP_INT_MAX
@@ -57,10 +172,13 @@ class mainLogic{
             }
             $q = "SELECT id, name FROM stops WHERE lat = '"+$lat_min+"' AND long = '"+$long_min+"'";           
             $res1 = $this->dbw->getQuery($q);
+			$returnArray = array();
+			
             if($res1){
                 $row = mysql_fetch_assoc($res1)
                 $id = $row["id"];
                 $name = $row["name"];
+				return array_push($returnArray, $id, $name);
             }else{
                 return false;
             }
