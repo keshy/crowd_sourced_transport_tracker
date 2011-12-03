@@ -72,10 +72,12 @@
   <br />
   <ul data-role="listview" id="resultslist" />
   <br />
-  <div id="map"></div>
+
  </div> 
 
-
+  <div id="mapcontainer">
+  <!--<img src="" id="mapimg" />-->
+  </div>
   <!-- JavaScript at the bottom for fast page loading -->
 
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if necessary -->
@@ -170,10 +172,12 @@
                 $('#resultslist').append(html);
                 $('#resultslist').listview("refresh");
 
-                $('#map').empty();
+                //$('#map').empty();
 
                 if (i > 0) {
-                    $('#map').append(getGoogleMapsImg());
+                    //$('#mapimg').attr('src', getGoogleMapsImg());
+                    $('#mapcontainer').empty();
+                    $('#mapcontainer').append(getGoogleMapsImg());
                     //$('#map').refresh();
                 }
             });
