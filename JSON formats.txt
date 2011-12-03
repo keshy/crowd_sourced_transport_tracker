@@ -1,18 +1,11 @@
 JSON formatting: 
 
 1. Update information: (Common for both feature)
-
-{
-    "update": {
-        "routeId": "<routeId>",
-        "stopId": "<stopId>",
-        "gpsLocation": "<gpslocation>"
-    }
-}
+http://<serverName>:<port>/<con>/main?api_method=update&route_id=x&stop_id=y&gpsLocation=z
 
 2. Acknowledgement for the update 
 {
-    "response": "<response from server/responseCode>",
+    "response": "<response from server>",
     "request": {
         "update": {
             "routeId": "<routeId>",
@@ -23,18 +16,11 @@ JSON formatting:
 }
 
 3. 	User query: Common across all platforms
-{
-    "query": {
-        "routeId": "<routeId>",
-        "stopId": "<stopId>",
-        "gpsLocation": "<gpslocation>",
-		"isSmartPhone": "<boolean value>"
-    }
-}
+http://<server>:<port>/<context>/main?api_method=query&route_id=x&stop_id=y&gpsLocation=z&isSmartPhone=false
 
 4. Data sent back from server for the query:
 {
-    "response": "<response code>",
+    "response": "<error code>",
     "data": [
         {
             "routeId": "<routeId>",
@@ -45,3 +31,31 @@ JSON formatting:
         }
     ]
 }
+
+5. getStops()
+{
+	"stops": [
+		{
+			"stopId": "<stopId>",
+			"stopName": "<stopName>"
+		}
+	]
+
+}
+
+6. getRoutes()
+
+{
+	"routes": [
+		{
+			"routeId": "<routeId>",
+			"routeName": "<routeName>",
+				
+		}
+		
+		
+	
+	]
+}
+
+
