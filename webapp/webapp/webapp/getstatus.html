@@ -96,10 +96,11 @@
   <script>
       var routeData = null;
 
-      function getGoogleMapsImg() {
+      function getGoogleMapsImg(coords) {
           var width = $(window).width();
           var height = width;
-          var img = '<img src="http://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=14&size=512x512&maptype=roadmap&markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:green%7Clabel:G%7C40.711614,-74.012318&markers=color:red%7Clabel:C%7C40.718217,-73.998284&sensor=false"/>';
+          //var img = '<img src="http://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=14&size=512x512&maptype=roadmap&markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:green%7Clabel:G%7C40.711614,-74.012318&markers=color:red%7Clabel:C%7C40.718217,-73.998284&sensor=false"/>';
+          var img = '<img src="' + generateMapUrl(coords) + '"/>';
           //alert(img);
           return img;
       }
@@ -140,7 +141,7 @@
             var len = data.routes.length;
             html += '<option value="">Select Route</option>';
             for (var i = 0; i < len; i++) {
-                html += '<option value="' + data.routes[i].routeId + '">' + data.routes[i].routeName + '</option>';
+                html += '<option value="' + data.routes[i].routeId + '">Route ' + data.routes[i].routeName + '</option>';
             }
             $('#routelist').append(html);
 
@@ -159,7 +160,10 @@
             // stop normal link click
             e.preventDefault();
 
-            $.getJSON('SampleGetRoutesResponse.txt', function (data) {
+            var url = "http://143.215.102.187/rhokatl/web_gateway.php?api_method=getRouteInfoAtStop&route_id=" + $('#routelist').val() + "&stop_id=" + $('#stoplist').val();
+            //var url = 'SampleGetRoutesResponse.txt';
+
+            $.getJSON(url, function (data) {
                 //var html = '<ul data-role="listview" id="resultslist">';
                 var html = '';
                 var len = data.data.length;
@@ -177,12 +181,69 @@
                 if (i > 0) {
                     //$('#mapimg').attr('src', getGoogleMapsImg());
                     $('#mapcontainer').empty();
-                    $('#mapcontainer').append(getGoogleMapsImg());
+                    $('#mapcontainer').append(getGoogleMapsImg([{ "lat": "34", "lng": "-84"}]));
                     //$('#map').refresh();
                 }
             });
         });
     });
+</script>
+
+<script>
+var colors = [
+    "green", 
+    "brown", 
+    "black", 
+    "purple", 
+    "yellow", 
+    "blue", 
+    "gray", 
+    "orange", 
+    "red", 
+    "white"        
+];
+
+var markers = [];
+$(colors).each(function(idx, color) {
+    var letter = getLetterForIndex(idx);
+    var colorText = color + "|000000";  // 00000 == outline color
+    var marker = "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=" + letter + "|" + colorText;
+    markers.push(marker);
+});
+
+function getLetterForIndex(index) {
+    var letter = String.fromCharCode(65 + index);
+    return letter;
+}
+
+function getMarkerUrl(index) {
+    var offset = index % colors.length;
+    return markers[offset];
+}
+
+function generateMapUrl(coordinates) {
+    var width = $(window).width();
+    var size = "" + width + "x" + width;
+    var url = "http://maps.google.com/maps/api/staticmap?zoom=13&size=" + size;
+    var center = null;
+    $.each(coordinates, function(idx, elem){
+        var lat = elem.lat;
+        var lng = elem.lng;
+        if (center == null) {
+            //we choose the first point as the center
+            url += "&center=" + lat.toString() + "," + lng.toString();
+        }
+        var colorIndex = idx % colors.length;
+        var color = colors[colorIndex];
+        var letter = getLetterForIndex(idx);
+        var marker = "markers=color:" + color + "|" + "label:" + letter + "|" + lat + "," + lng;
+        url = url + "&" + marker;
+    });
+    url += "&sensor=false";
+    return url;
+}
+
+ 
 </script>
 
 

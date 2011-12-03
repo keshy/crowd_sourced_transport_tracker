@@ -102,7 +102,7 @@
               html += '<option value="">Select Route</option>';
               var len = data.routes.length;
               for (var i = 0; i < len; i++) {
-                  html += '<option value="' + data.routes[i].routeId + '">' + data.routes[i].routeName + '</option>';
+                  html += '<option value="' + data.routes[i].routeId + '">Route ' + data.routes[i].routeName + '</option>';
               }
               $('#routelist').html(html);
 
