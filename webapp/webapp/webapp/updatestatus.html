@@ -37,8 +37,10 @@
 
   <!-- more tags for your 'head' to consider https://gist.github.com/849231 -->
 
-  <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="css/style.css?v=1">
+ <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
+
 
   <!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects -->
   <script src="js/libs/modernizr-custom.js"></script>
@@ -48,33 +50,29 @@
 
 <body>
 
-  <div id="container">
-    <header>
-
-    </header>
-    <div id="main" role="main">
-    <form>
+<div data-role="page" id="page3"> 
+  <div data-role="header">
+    <a data-role="button" data-rel="back" data-icon="arrow-l">Back</a>
+    <h1>Get Status</h1>
+  </div>
+  <div data-role="content">
+   <form>
    <select id="routelist">
    </select>
  
-   <button type="button" id="updatestatusbutton">Update Status</button>
+   <button type="button" id="updatestatusbutton" data-theme="a">Update Status</button>
    </form>
     <div id="results"></div>
-
-    </div>
- 
-    <footer>
-
-    </footer>
-  </div> <!--! end of #container -->
+    <div id="location"></div>
+  </div>
 
 
   <!-- JavaScript at the bottom for fast page loading -->
 
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if necessary -->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+  <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="js/libs/jquery-1.6.2.min.js"><\/script>')</script>
-
+-->
   <!-- scripts concatenated and minified via ant build script -->
   <script src="js/mylibs/helper.js"></script>
   <!-- end concatenated and minified scripts-->
@@ -96,7 +94,8 @@
   </script>
 
   <script>
-      $(document).ready(function () {
+      //$(document).ready(function () {
+      $('#page3').live('pageinit', function (event) {
           $.getJSON('SampleRouteList.txt', function (data) {
               routeData = data;
               var html = '';
@@ -105,6 +104,9 @@
                   html += '<option value="' + data.routes[i].routeId + '">' + data.routes[i].routeName + '</option>';
               }
               $('#routelist').append(html);
+
+              $('#routelist').selectedIndex = 0;
+              $('#routelist').selectmenu("refresh");
           });
 
           // add markup to container and apply click handlers to anchors
@@ -112,11 +114,41 @@
               // stop normal link click
               e.preventDefault();
 
-              $('#results').replaceWith('Update successful.  Thank you for participating!');
+              $('#results').replaceWith('Update successful.  Thank you for participating!<br/>');
           });
       });
 
+      $('#page3').live('pageinit', initiate_geolocation);
+      //$(document).ready(initiate_geolocation);
+
+      function initiate_geolocation() {
+          navigator.geolocation.getCurrentPosition(handle_geolocation_query, handle_errors);
+      }
+
+      function handle_errors(error) {
+          switch (error.code) {
+              case error.PERMISSION_DENIED: alert("we knew you would do that");
+                  break;
+
+              case error.POSITION_UNAVAILABLE: alert("could not detect current position");
+                  break;
+
+              case error.TIMEOUT: alert("retrieving position timed out");
+                  break;
+
+              default: alert("something went terribly wrong");
+                  break;
+          }
+      }
+
+      function handle_geolocation_query(position) {
+          $('#location').replaceWith('Lat: ' + position.coords.latitude + '<br/>' +
+                  ' Lon: ' + position.coords.longitude);
+      }  
   </script>
+
+  </div>
+
 
 </body>
 </html>

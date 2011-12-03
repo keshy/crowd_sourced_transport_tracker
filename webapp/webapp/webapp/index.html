@@ -37,8 +37,14 @@
 
   <!-- more tags for your 'head' to consider https://gist.github.com/849231 -->
 
-  <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="css/style.css?v=1">
+  <!-- Main Stylesheet --><!--
+  <link rel="stylesheet" href="css/style.css?v=1">-->
+
+  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
+
+  
 
   <!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects -->
   <script src="js/libs/modernizr-custom.js"></script>
@@ -48,45 +54,37 @@
 
 <body>
 
-  <div id="container">
-    <header>
-    Bus Tracker
-    </header>
-    <div id="main" role="main">
-    <a href="getstatus.html">Get Status</a>
-    <br />
-    <a href="updatestatus.html">Update Status</a>
-    <footer>
+<div data-role="page"> 
+  <div data-role="header">
+    <h1>Bus Tracker</h1>
+  </div>
+  <div data-role="content">
+      <ul data-role="listview">
+	    <li><a href="getstatus.html" data-role="button">Get Status</a></li>
+	    <li><a href="updatestatus.html" data-role="button">Update Status</a></li>
+      </ul>
+  </div>
+</div>
 
-    </footer>
-  </div> <!--! end of #container -->
+ 
 
 
   <!-- JavaScript at the bottom for fast page loading -->
 
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if necessary -->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+ <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+--><!--
   <script>window.jQuery || document.write('<script src="js/libs/jquery-1.6.2.min.js"><\/script>')</script>
-
+-->
   <!-- scripts concatenated and minified via ant build script -->
-  <script src="js/mylibs/helper.js"></script>
-  <!-- end concatenated and minified scripts-->
+  <!--<script src="js/mylibs/helper.js"></script>
+  --><!-- end concatenated and minified scripts-->
 
-  <script>
-    // iPhone Scale Bug Fix, read this when using http://www.blog.highub.com/mobile-2/a-fix-for-iphone-viewport-scale-bug/
-    MBP.scaleFix();
-  </script>
+ 
 
   <!-- Debugger - remove for production -->
   <!-- <script src="https://getfirebug.com/firebug-lite.js"></script> -->
 
-  <!-- mathiasbynens.be/notes/async-analytics-snippet Change UA-XXXXX-X to be your site's ID -->
-  <script>
-    var _gaq=[["_setAccount","UA-XXXXX-X"],["_trackPageview"]];
-    (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
-    g.src=("https:"==location.protocol?"//ssl":"//www")+".google-analytics.com/ga.js";
-    s.parentNode.insertBefore(g,s)}(document,"script"));
-  </script>
-
+  
 </body>
 </html>

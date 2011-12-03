@@ -38,7 +38,11 @@
   <!-- more tags for your 'head' to consider https://gist.github.com/849231 -->
 
   <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="css/style.css?v=1">
+ <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
+
+  
 
   <!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects -->
   <script src="js/libs/modernizr-custom.js"></script>
@@ -50,58 +54,46 @@
 
 <body>
 
-  <div id="container">
-    <header>
-    Get Status
-    </header>
-    <div id="main" role="main">
-   <form>
-   <select id="routelist">
-   </select>
-    <select id="stoplist">
-   </select>
-   <button type="button" id="getstatusbutton">Get Status</button>
-   </form>
+<div data-role="page" id="page2"> 
+  <div data-role="header">
+    <a data-role="button" data-rel="back" data-icon="arrow-l">Back</a>
+    <h1>Get Status</h1>
+  </div>
+  <div data-role="content">
+      <form action="">
+    
+	<select id="routelist">
+	</select>
+    
+        <select id="stoplist">
+       </select>
+       <button type="button" id="getstatusbutton" data-theme="a">Get Status</button>
+       </form>
    </div>
-   <div id="results"></div>
-    <footer>
-
-    </footer>
-  </div> <!--! end of #container -->
-
+   <div id="results"/>
 
   <!-- JavaScript at the bottom for fast page loading -->
 
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if necessary -->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+ <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="js/libs/jquery-1.6.2.min.js"><\/script>')</script>
-
+-->
   <!-- scripts concatenated and minified via ant build script -->
   <script src="js/mylibs/helper.js"></script>
   <!-- end concatenated and minified scripts-->
 
-  <script>
-    // iPhone Scale Bug Fix, read this when using http://www.blog.highub.com/mobile-2/a-fix-for-iphone-viewport-scale-bug/
-    MBP.scaleFix();
-  </script>
 
   <!-- Debugger - remove for production -->
   <!-- <script src="https://getfirebug.com/firebug-lite.js"></script> -->
 
-  <!-- mathiasbynens.be/notes/async-analytics-snippet Change UA-XXXXX-X to be your site's ID -->
-  <script>
-    var _gaq=[["_setAccount","UA-XXXXX-X"],["_trackPageview"]];
-    (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
-    g.src=("https:"==location.protocol?"//ssl":"//www")+".google-analytics.com/ga.js";
-    s.parentNode.insertBefore(g,s)}(document,"script"));
-  </script>
-
+ 
   <script>
       var routeData = null;
 
       function initStopList(routeId)
     {
         var value = routeId
+        //var html = '<option value="0" selected="true">Select Route</option>';
         var html = '';
         var len = routeData.routes.length;
         for (var i = 0; i < len; i++) {
@@ -114,9 +106,12 @@
         }
         $('#stoplist').empty();
         $('#stoplist').append(html);
+        $('#stoplist').selectedIndex = 0;
+        $('#stoplist').selectmenu("refresh");
     }
 
-    $(document).ready(function () {
+    $('#page2').live('pageinit', function (event) {
+        //$(document).ready(function () {
 
         $("#routelist").change(function () {
             initStopList($(this).val());
@@ -124,6 +119,7 @@
 
         $.getJSON('SampleRouteList.txt', function (data) {
             routeData = data;
+            //var html = '<option value="0">Select Route</option>';
             var html = '';
             var len = data.routes.length;
             for (var i = 0; i < len; i++) {
@@ -131,7 +127,12 @@
             }
             $('#routelist').append(html);
 
-            initStopList(1);
+
+            $('#routelist').selectedIndex = 0;
+            $('#routelist').selectmenu("refresh");
+
+            initStopList($('#routelist').val());
+
         });
 
 
@@ -149,15 +150,12 @@
                 }
                 $('#results').replaceWith(html);
             });
-
-
-
-
-
         });
     });
 </script>
 
+
+</div> <!--! end of #container -->
 
 </body>
 </html>
