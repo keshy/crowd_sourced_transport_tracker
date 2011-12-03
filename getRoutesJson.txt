@@ -1,0 +1,55 @@
+{
+	"routes": [
+		{
+			"routeId": "1",
+			"routeName": "1",
+			"direction": "south"	
+		},
+		{
+			"routeId": "3",
+			"routeName": "3",
+			"direction": "east"	
+		},
+		{
+			"routeId": "6",
+			"routeName": "6",
+			"direction": "south"	
+		},
+		{
+			"routeId": "19",
+			"routeName": "19",
+			"direction": "north"	
+		},
+		{
+			"routeId": "26",
+			"routeName": "26",
+			"direction": "east"	
+		},
+		{
+			"routeId": "42",
+			"routeName": "42",
+			"direction": "north"	
+		},
+		{
+			"routeId": "53",
+			"routeName": "53",
+			"direction": "south"	
+		},
+		{
+			"routeId": "73",
+			"routeName": "73",
+			"direction": "north"	
+		},
+		{
+			"routeId": "78",
+			"routeName": "78",
+			"direction": "west"	
+		},
+		{
+			"routeId": "93",
+			"routeName": "93",
+			"direction": "east"	
+		}
+			
+	]
+}
