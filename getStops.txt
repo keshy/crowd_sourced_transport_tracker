@@ -1,5 +1,5 @@
 {
-	"stops": [
+	"routes": [
 		{ 
 			"routeId": "1",
 			"direction": "south",
