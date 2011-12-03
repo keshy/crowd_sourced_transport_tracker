@@ -1,0 +1,294 @@
+﻿{
+    "routes": [
+        {
+            "routeId": "1",
+            "direction": "south",
+            "routeName": "1",
+            "stopList": [
+                {
+                    "stopId": "CWMM",
+                    "stopName": "Coronet Way & Moores Mill Road"
+                },
+                {
+                    "stopId": "ChSo",
+                    "stopName": "Chattahoochee & Southland"
+                },
+                {
+                    "stopId": "HuHM",
+                    "stopName": "Huff Rd & Howell Mill"
+                },
+                {
+                    "stopId": "LuNo",
+                    "stopName": "Luckie St & North Ave."
+                },
+                {
+                    "stopId": "AlBr",
+                    "stopName": "Alabama & Broad St."
+                }
+            ]
+        },
+        {
+            "routeId": "3",
+            "direction": "east",
+            "routeName": "3",
+            "stopList": [
+                {
+                    "stopId": "HoSt",
+                    "stopName": "Hamilton E. Holmes Station"
+                },
+                {
+                    "stopId": "MkWl",
+                    "stopName": "M. L. King Jr. Dr. @ Westlake Av"
+                },
+                {
+                    "stopId": "MLWh",
+                    "stopName": "Martin Luther King & Whitehouse"
+                },
+                {
+                    "stopId": "AlBr",
+                    "stopName": "Alabama & Broad St."
+                },
+                {
+                    "stopId": "HiRa",
+                    "stopName": "Highland & Randolph"
+                },
+                {
+                    "stopId": "CaPN",
+                    "stopName": "Candler Park Station North"
+                }
+            ]
+        },
+        {
+            "routeId": "6",
+            "direction": "south",
+            "routeName": "6",
+            "stopList": [
+                {
+                    "stopId": "LiSt",
+                    "stopName": "Lindbergh Station"
+                },
+                {
+                    "stopId": "BrLa",
+                    "stopName": "Briarcliff & LaVista"
+                },
+                {
+                    "stopId": "NDCf",
+                    "stopName": "N. Decatur & Clifton Rd."
+                },
+                {
+                    "stopId": "IPSN",
+                    "stopName": "Inman Park Station (North Bay)"
+                }
+            ]
+        },
+        {
+            "routeId": "19",
+            "direction": "north",
+            "routeName": "19",
+            "stopList": [
+                {
+                    "stopId": "DeSt",
+                    "stopName": "Decatur Station"
+                },
+                {
+                    "stopId": "ClND",
+                    "stopName": "Chattahoochee & Southland"
+                },
+                {
+                    "stopId": "VAHo",
+                    "stopName": "VA Hospital"
+                },
+                {
+                    "stopId": "ClLV",
+                    "stopName": "Clairmont & LaVista"
+                },
+                {
+                    "stopId": "ClBu",
+                    "stopName": "Clairmont & Buford"
+                },
+                {
+                    "stopId": "ChSE",
+                    "stopName": "Chamblee Station East Bus Bay"
+                }
+            ]
+        },
+        {
+            "routeId": "26",
+            "direction": "east",
+            "routeName": "26",
+            "stopList": [
+                {
+                    "stopId": "PeHe",
+                    "stopName": "Perry Heights"
+                },
+                {
+                    "stopId": "CaHi",
+                    "stopName": "Carver Hills"
+                },
+                {
+                    "stopId": "PeGa",
+                    "stopName": "Perry Garage"
+                },
+                {
+                    "stopId": "BaSt",
+                    "stopName": "Bankhead Station"
+                },
+                {
+                    "stopId": "EaCABlvd",
+                    "stopName": "English Ave. & Cameron M. Alexan"
+                },
+                {
+                    "stopId": "NASt",
+                    "stopName": "North Ave Station"
+                }
+            ]
+        },
+        {
+            "routeId": "42",
+            "direction": "north",
+            "routeName": "42",
+            "stopList": [
+                {
+                    "stopId": "LaSt",
+                    "stopName": "Lakewood Station"
+                },
+                {
+                    "stopId": "JBLW",
+                    "stopName": "John Burdine @ Lakewood Way"
+                },
+                {
+                    "stopId": "ArLf",
+                    "stopName": "Arthur Langford Jr. Pl."
+                },
+                {
+                    "stopId": "MoMi",
+                    "stopName": "Moury & Middleton"
+                },
+                {
+                    "stopId": "McUn",
+                    "stopName": "McDaniel & University"
+                },
+                {
+                    "stopId": "AlBr",
+                    "stopName": "Alabama & Broad St."
+                }
+            ]
+        },
+        {
+            "routeId": "53",
+            "direction": "south",
+            "routeName": "53",
+            "stopList": [
+                {
+                    "stopId": "AlBr",
+                    "stopName": "Coronet Way & Moores Mill Road"
+                },
+                {
+                    "stopId": "AtHA",
+                    "stopName": "Atlanta Ave. & Hank Aaron"
+                },
+                {
+                    "stopId": "CrJo",
+                    "stopName": "Claire Dr. & Jonesboro Rd."
+                },
+                {
+                    "stopId": "ClJo",
+                    "stopName": "Cleveland Ave & Jonesboro Rd"
+                },
+                {
+                    "stopId": "FPHu",
+                    "stopName": "Forest Park & Hutchins"
+                },
+                {
+                    "stopId": "JoOC",
+                    "stopName": "Jonesboro & Old Conley"
+                }
+            ]
+        },
+        {
+            "routeId": "73",
+            "direction": "north",
+            "routeName": "73",
+            "stopList": [
+                {
+                    "stopId": "LaBR",
+                    "stopName": "LaGrange & Boat Rock"
+                },
+                {
+                    "stopId": "BFBR",
+                    "stopName": "Baker Ferry & Boat Rock"
+                },
+                {
+                    "stopId": "FICa",
+                    "stopName": "Fulton Ind. & Cascade"
+                },
+                {
+                    "stopId": "FIJa",
+                    "stopName": "Fulton Industrial & James Aldred"
+                },
+                {
+                    "stopId": "FIML",
+                    "stopName": "Fulton Industrial & MLK"
+                },
+                {
+                    "stopId": "HoSt",
+                    "stopName": "Hamilton E. Holmes Station"
+                }
+            ]
+        },
+        {
+            "routeId": "78",
+            "direction": "west",
+            "routeName": "78",
+            "stopList": [
+                {
+                    "stopId": "ClJo",
+                    "stopName": "Cleveland Ave & Jonesboro Rd"
+                },
+                {
+                    "stopId": "BMCl",
+                    "stopName": "Browns Mill & Cleveland"
+                },
+                {
+                    "stopId": "ClSy",
+                    "stopName": "Cleveland & Sylvan"
+                },
+                {
+                    "stopId": "EPSt",
+                    "stopName": "East Point Station"
+                }
+            ]
+        },
+        {
+            "routeId": "93",
+            "direction": "west",
+            "routeName": "93",
+            "stopList": [
+                {
+                    "stopId": "DeDo",
+                    "stopName": "Delowe & Dorsey"
+                },
+                {
+                    "stopId": "DeHe",
+                    "stopName": "Delowe Dr. & Headland Dr"
+                },
+                {
+                    "stopId": "EPStA",
+                    "stopName": "East Point Station A"
+                },
+                {
+                    "stopId": "EPSt",
+                    "stopName": "East Point Station"
+                },
+                {
+                    "stopId": "BaEW",
+                    "stopName": "Bayard St. & E.Washington Ave."
+                },
+                {
+                    "stopId": "MHNB",
+                    "stopName": "Maria Head & Norman Berry"
+                }
+            ]
+        }
+    ]
+}
