@@ -99,6 +99,7 @@
           $.getJSON('SampleRouteList.txt', function (data) {
               routeData = data;
               var html = '';
+              html += '<option value="">Select Route</option>';
               var len = data.routes.length;
               for (var i = 0; i < len; i++) {
                   html += '<option value="' + data.routes[i].routeId + '">' + data.routes[i].routeName + '</option>';

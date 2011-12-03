@@ -69,8 +69,12 @@
        </select>
        <button type="button" id="getstatusbutton" data-theme="a">Get Status</button>
        </form>
+  
+         
    </div>
-   <div id="results"/>
+ <div id="resultscontainer"/>
+       
+
 
   <!-- JavaScript at the bottom for fast page loading -->
 
@@ -92,9 +96,11 @@
 
       function initStopList(routeId)
     {
-        var value = routeId
+        var value = routeId;
+
         //var html = '<option value="0" selected="true">Select Route</option>';
         var html = '';
+        html += '<option value="">Select Stop</option>';
         var len = routeData.routes.length;
         for (var i = 0; i < len; i++) {
             if (routeData.routes[i].routeId == value) {
@@ -122,6 +128,7 @@
             //var html = '<option value="0">Select Route</option>';
             var html = '';
             var len = data.routes.length;
+            html += '<option value="">Select Route</option>';
             for (var i = 0; i < len; i++) {
                 html += '<option value="' + data.routes[i].routeId + '">' + data.routes[i].routeName + '</option>';
             }
@@ -143,13 +150,22 @@
             e.preventDefault();
 
             $.getJSON('SampleGetRoutesResponse.txt', function (data) {
-                var html = '';
+                var html = '<ul data-role="listview" id="resultslist">';
+                //var html = '';
                 var len = data.data.length;
                 for (var i = 0; i < len; i++) {
-                    html += '<p>' + data.data[i].routeName + '</p>';
+                    html += '<li>' + data.data[i].routeName + '</li>';
                 }
-                $('#results').replaceWith(html);
+                html += '</ul>'
+                //$('#resultslist').empty();
+                $('#resultscontainer').html(html);
             });
+
+            //$('#resultscontainer').listview();
+
+            //$('#resultscontainer').listview('refresh');
+            //$('#resultslist').listview();
+            //$('#resultslist').listview("refresh");
         });
     });
 </script>
