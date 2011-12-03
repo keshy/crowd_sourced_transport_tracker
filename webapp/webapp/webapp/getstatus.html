@@ -166,11 +166,18 @@
             $.getJSON(url, function (data) {
                 //var html = '<ul data-role="listview" id="resultslist">';
                 var html = '';
-                var len = data.data.length;
-                for (var i = 0; i < len; i++) {
-                    html += '<li>' + data.data[i].routeName + '<span class="ui-li-aside">23:00</span></li>';
-                    html += ''
-                }
+                
+                if (data.length == 0)
+                return;
+                
+                html += '<li>' + data[0] + ' - ' + data[1]  +  '<span class="ui-li-aside">' + data[2] + '</span></li>';
+                
+                
+                //var len = data.data.length;
+                //for (var i = 0; i < len; i++) {
+                 //   html += '<li>' + data.data[i].routeName + '<span class="ui-li-aside">23:00</span></li>';
+                  //  html += ''
+               // }
                 //html += '</ul>'
                 $('#resultslist').empty();
                 $('#resultslist').append(html);
@@ -178,12 +185,12 @@
 
                 //$('#map').empty();
 
-                if (i > 0) {
+                //if (i > 0) {
                     //$('#mapimg').attr('src', getGoogleMapsImg());
                     $('#mapcontainer').empty();
                     $('#mapcontainer').append(getGoogleMapsImg([{ "lat": "34", "lng": "-84"}]));
                     //$('#map').refresh();
-                }
+                //}
             });
         });
     });

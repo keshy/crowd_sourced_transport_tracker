@@ -114,6 +114,11 @@
           $("#updatestatusbutton").click(function (e) {
               // stop normal link click
               e.preventDefault();
+              
+              var url = "http://143.215.102.187/rhokatl/web_gateway.php?api_method=update&route_id=" + $('#routelist').val() + "&stop_id=" + $('#stoplist').val();
+            $.getJSON(url, function (data) {});
+                
+                
 
               $('#results').replaceWith('Update successful.  Thank you for participating!<br/>');
           });
