@@ -1,5 +1,5 @@
 <?php
-require_once "includes.php";
+require_once "class_dbwrapper.php";
 
 class MainLogic{
 
@@ -15,57 +15,116 @@ class MainLogic{
     public function getRouteInfoAtStop($routeId, $stopId){
   	
 	//fetch the most recently updated time stamp for that route information and return the stop where it was seen
-		$q = "SELECT * FROM sightings as s where timestamp = ( select max(timestamp) from sightings where r_id='"+$routeId"'";
+		$q = "SELECT * FROM sightings where timestamp = ( select max(timestamp) from sightings where r_id='".$routeId."')";
 		$res = $this->dbw->getQuery($q);
-		
-        
-        
 		$resultArray = array();
 		if($res){
+            $row = mysql_fetch_assoc($res);
 			$sid = $row["s_id"];
-            $stopNameQuery = "SELECT sname FROM stops where s_id = '"+$sid+"'";
+            $timestamp = $row["timestamp"];
+            $stopNameQuery = "SELECT name FROM stops where id = '".$sid."'";
             $stopName = $this->dbw->getQuery($stopNameQuery);
-			$timestamp = $row["timestamp"];
+            $row1 = mysql_fetch_assoc($stopName);
+			$stopName = $row1["name"];
 			//got the timestamp and the sid for the most recent check in for the route.  
-			array_push($resultArray, $routeId,$stopName, $timestamp);	
+			array_push($resultArray, $routeId, $stopName, $timestamp);
+            return $resultArray;
 		}
 		else {
             return false;
 		}
-		return $resultArrray;
 	}
+	
 	
 	public function getAllRoutesAtStop($stopId){
 		//get all the routes at a particular stop. 
-		$q = "SELECT distinct(r_id) FROM stoplist where s_id = '"+$stopId+"'";
+		$q = "SELECT distinct(r_id) FROM stoplist where s_id = '".$stopId."'";
 		$res = $this->dbw->getQuery($q);
 		
 		$rids = array();
 		
 		if($res){
 			while($row = mysql_fetch_assoc($res)){
-                array_push($rids,$row);
+                $routeId = $row["r_id"];
+                array_push($rids,$routeId);
+                
 			}
 		}else {
             //throw error 
 			return false;
 		}
-		
+        //print_r($rids);
+		/*//echo $rids;
 		// cycle through each route Id 
 		$result = array();
 		//cycle through each routeID and call getRouteInfoForStop
 		if($rids){
-        $i=0;
+            $i=0;
 			foreach($rids as $routeId){
-                $i = $i + 1;
-				$response = getRouteInfoAtStop($routeId, $stopId);
+                $i = $i + 1;                
                 //get 3 most recent updates for routes near the located user.
-                if($i<=3){
+                if( $i<= count($rids) && $i<=3 ){
+                    $response = $this->getRouteInfoAtStop($routeId, $stopId);
+                    if(!$response){
+                        break;
+                    }
                     array_push($result, $response);
                 }
                 else {
                     break;
-                }                       
+                }      
+
+			}
+		} 
+		else {
+			//throw error 
+            return false;
+		}
+        
+		return $result;*/
+        return $rids;
+	}
+	
+    
+    public function smsGetAllRoutesAtStop($stopId){
+		//get all the routes at a particular stop. 
+		$q = "SELECT distinct(r_id) FROM stoplist where s_id = '".$stopId."'";
+		$res = $this->dbw->getQuery($q);
+		
+		$rids = array();
+		
+		if($res){
+			while($row = mysql_fetch_assoc($res)){
+                $routeId = $row["r_id"];
+                array_push($rids,$routeId);
+                
+			}
+		}else {
+            //throw error 
+			return false;
+		}
+        //print_r($rids);
+		//echo $rids;
+		// cycle through each route Id 
+		$result = array();
+		//cycle through each routeID and call getRouteInfoForStop
+		if($rids){
+            $i=0;
+			foreach($rids as $routeId){
+                $i = $i + 1;                
+                //get 3 most recent updates for routes near the located user.
+                if( $i<= count($rids) && $i<=3 ){
+                    $response = $this->getRouteInfoAtStop($routeId, $stopId);
+                    if(!$response){
+                        break;
+                    }
+                    array_push($result, $response);
+                    
+                }
+                else {
+                    break;
+                }      
+
 			}
 		} 
 		else {
@@ -74,23 +133,32 @@ class MainLogic{
 		}
         
 		return $result;
+        //return $rids;
 	}
-	
+    
     //1.b Smart-phone functions
 	public function getAllRoutesNearMe($lat1, $long1){
 	//get routes near me taking the gps location as coordinates
 	//First step would be to find out the nearest stop with this lat long. 
-		$stopDetail = getStopIdAndNameForLatLong($lat1, $long1);
+		$stopDetail = $this->getStopIdAndNameForLatLong($lat1, $long1);
 		$stopName = array_pop($stopDetail);
 		$stopId = array_pop($stopDetail);
 		
 		//now with the stop get routes next near this stop. 
-		$rids = getAllRoutesAtStop($stopId);
+		$rids = $this->getAllRoutesAtStop($stopId);
+        
+        //print_r($rids);
 		$result = array();
 		//cycle through each routeID and call getRouteInfoForStop
 		if($rids){
-			foreach($rids as $routeId){
-				$response = getRouteInfoAtStop($routeId, $stopId);
+			foreach($rids as $routeElement){
+                $routeId = $routeElement;            
+				$response = $this->getRouteInfoAtStop($routeId, $stopId);
+                if(!$response){
+                    break; 
+                }
+                
+                
 				array_push($result, $response);
 			}
 			
@@ -106,45 +174,47 @@ class MainLogic{
 	public function getRouteInfoNearMe($routeId, $lat1, $long1){
 		//lat long received from client
 		//get stop Id first. 
-		$stopDetail = getStopIdAndNameForLatLong($lat1, $long1);
+		$stopDetail = $this->getStopIdAndNameForLatLong($lat1, $long1);
+        if(!$stopDetail){
+            return false;
+        }
+        
 		$stopName = array_pop($stopDetail);
 		$stopId = array_pop($stopDetail);
 		
 		//call specific method - reduced to feature phone
-		return getRouteInfoAtStop($routeId, $stopId);
+		return $this->getRouteInfoAtStop($routeId, $stopId);
 		
 	}
 	   
     //02. All the Setters     //update sighting information 
 	public function update($routeId, $stopId){
 		//update the entry to the sightings table...
-		$q = "INSERT INTO sightings (s_id, r_id) VALUES ('"+$stopId+"', '"+$routeId+"')";
-		$res = $this->dbw->getQuery($q);
-		$OK = null;
+		$q = "INSERT INTO sightings (s_id, r_id) VALUES ('".$stopId."', '".$routeId."')";
+		$res = $this->dbw->insQuery($q);
 		if($res){
 			//return success
-			$OK = "Update Successful";
+			return "Update Successful";
 		}
 		else {
 			//throw error
-            $OK = "Update Failed. Please try later.";
+            return "Update Failed. Please try later. [09]";
 		}
-        return $OK;
 	}
 
     
     //03. Utility functions
     private function getStopIdAndNameForLatLong($lat1, $long1){
-        $dist = PHP_INT_MAX
+        $dist = PHP_INT_MAX;
         $lat_min =0;
         $long_min =0;
-        $q = "SELECT lat, long FROM stops";
+        $q = "SELECT lat, lng FROM stops";
         $res = $this->dbw->getQuery($q);
         if($res){
             while($row = mysql_fetch_assoc($res)){
                 $lat2 = $row["lat"];
-                $long2 = $row["long"];
-                $d = $this->getDistanceBetnLatLong($lat1, $long1, $lat2, $long2) 
+                $long2 = $row["lng"];
+                $d = $this->getDistanceBetnLatLong($lat1, $long1, $lat2, $long2);
                 //fetch the distance, if the distance isa less.. save it.
                 if($d < $dist){
                     $dist = $d;
@@ -152,15 +222,17 @@ class MainLogic{
                     $long_min = $long2;
                 }
             }
-            $q = "SELECT id, name FROM stops WHERE lat = '"+$lat_min+"' AND long = '"+$long_min+"'";           
+            
+            $q = "SELECT id, name FROM stops WHERE lat = '".$lat_min."' AND lng = '".$long_min."'";           
             $res1 = $this->dbw->getQuery($q);
 			$returnArray = array();
 			
             if($res1){
-                $row = mysql_fetch_assoc($res1)
+                $row = mysql_fetch_assoc($res1);
                 $id = $row["id"];
                 $name = $row["name"];
-				return array_push($returnArray, $id, $name);
+				array_push($returnArray, $id, $name);
+                return $returnArray;
             }else{
                 return false;
             }
@@ -182,7 +254,6 @@ class MainLogic{
         $a = sin($dlat / 2) * sin($dlat / 2) + cos($lat1) * cos($lat2) * sin($dlng / 2) * sin($dlng / 2);
         $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
         $km = $r * $c;
-     
         return ($miles ? ($km * 0.621371192) : $km);
     }
 
