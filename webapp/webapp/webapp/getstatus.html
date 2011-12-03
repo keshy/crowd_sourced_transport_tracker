@@ -71,10 +71,9 @@
        </form>
   <br />
   <ul data-role="listview" id="resultslist" />
-         
-   </div>
- <div id="resultscontainer"/>
-       
+  <br />
+  <div id="map"></div>
+ </div> 
 
 
   <!-- JavaScript at the bottom for fast page loading -->
@@ -94,6 +93,14 @@
  
   <script>
       var routeData = null;
+
+      function getGoogleMapsImg() {
+          var width = $(window).width();
+          var height = width;
+          var img = '<img src="http://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=14&size=512x512&maptype=roadmap&markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:green%7Clabel:G%7C40.711614,-74.012318&markers=color:red%7Clabel:C%7C40.718217,-73.998284&sensor=false"/>';
+          alert(img);
+          return img;
+      }
 
       function initStopList(routeId)
     {
@@ -162,6 +169,13 @@
                 $('#resultslist').empty();
                 $('#resultslist').append(html);
                 $('#resultslist').listview("refresh");
+
+                $('#map').empty();
+
+                if (i > 0) {
+                    $('#map').append(getGoogleMapsImg());
+                    //$('#map').refresh();
+                }
             });
         });
     });
